@@ -19,7 +19,7 @@ repository = "https://github.com/fujiapple852/trippy"
 readme = "README.md"
 license = "Apache-2.0"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.88"
 keywords = ["cli", "tui", "traceroute", "ping", "icmp"]
 categories = ["command-line-utilities", "network-programming"]
 
@@ -31,47 +31,47 @@ trippy-dns = { version = "0.14.0-dev", path = "crates/trippy-dns" }
 trippy-packet = { version = "0.14.0-dev", path = "crates/trippy-packet" }
 anyhow = "1.0.91"
 arrayvec = { version = "0.7.6", default-features = false }
-bitflags = "2.11.1"
+bitflags = "2.13.0"
 caps = "0.5.6"
-chrono = { version = "0.4.44", default-features = false }
+chrono = { version = "0.4.45", default-features = false }
 chrono-tz = "0.10.4"
 clap = { version = "4.5.60", default-features = false }
-clap-cargo = "0.15.2"
+clap-cargo = "0.18.3"
 clap_complete = "4.6.0"
 clap_mangen = "0.3.0"
 comfy-table = { version = "7.1.4", default-features = false }
 crossbeam = "0.8.4"
-crossterm = { version = "0.28.1", default-features = false }
+crossterm = { version = "0.29.0", default-features = false }
 csv = "1.4.0"
 derive_more = { version = "2.1.1", default-features = false }
 dns-lookup = "3.0.1"
 encoding_rs_io = "0.1.7"
-etcetera = "0.10.0"
+etcetera = "0.11.0"
 futures-concurrency = "7.6.3"
 hex-literal = "1.1.0"
 hickory-resolver = "0.24.4"
 humantime = "2.3.0"
 indexmap = { version = "2.14.0", default-features = false }
 insta = "1.47.2"
-itertools = "0.14.0"
-maxminddb = "0.27.3"
-mockall = "0.14.0"
-nix = { version = "0.31.2", default-features = false }
+itertools = "0.15.0"
+maxminddb = "0.28.1"
+mockall = "0.15.0"
+nix = { version = "0.31.3", default-features = false }
 parking_lot = "0.12.5"
 paste = "1.0.15"
 petgraph = "0.8.3"
 pretty_assertions = "1.4.1"
 rand = "0.10.1"
-ratatui = "0.29.0"
+ratatui = "0.30.1"
 serde = { version = "1.0.201", default-features = false }
 serde_json = { version = "1.0.117", default-features = false }
-serde_with = { version = "3.17.0", default-features = false, features = ["macros"] }
-socket2 = "0.6.3"
+serde_with = { version = "3.21.0", default-features = false, features = ["macros"] }
+socket2 = "0.6.4"
 strum = { version = "0.28.0", default-features = false }
 sys-locale = "0.3.2"
 test-case = "3.3.1"
 thiserror = "2.0.3"
-tokio = "1.52.1"
+tokio = "1.52.2"
 tokio-util = "0.7.18"
 toml = { version = "1.1.2", default-features = false, features = ["serde"] }
 tracing = "0.1.44"
@@ -81,7 +81,7 @@ tun-rs = "2.8.3"
 unic-langid = "0.9.6"
 unicode-width = "0.2.0"
 widestring = "1.2.1"
-windows-sys = "0.52.0"
+windows-sys = "0.61.2"
 
 [workspace.lints.rust]
 unsafe_code = "deny"

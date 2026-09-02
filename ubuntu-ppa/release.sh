@@ -18,7 +18,7 @@ UPSTREAM="0.14.0-dev"
 REVISION=1
 
 # The Ubuntu series to build for
-SERIES=("noble" "jammy")
+SERIES=("resolute")
 
 TARBALL="trippy_${UPSTREAM}.orig.tar.gz"
 PACKAGE="trippy"
@@ -55,7 +55,7 @@ tar -xf "${TARBALL}"
 pushd "trippy-${VERSION}"
 rm -f ../ubuntu-ppa/vendor.tar.xz
 rm -rf vendor
-cargo-1.85 vendor --locked
+cargo-1.88 vendor --locked
 tar -cJf ../ubuntu-ppa/vendor.tar.xz vendor
 popd
 rm -rf "trippy-${VERSION}"

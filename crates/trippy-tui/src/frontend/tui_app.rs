@@ -32,6 +32,8 @@ pub struct TuiApp {
     pub selected_flow: FlowId,
     /// Ordered flow ids with counts.
     pub flow_counts: Vec<(FlowId, usize)>,
+    /// The index of the first visible flow in the flows chart.
+    pub flows_start_index: usize,
     pub resolver: DnsResolver,
     pub geoip_lookup: GeoIpLookup,
     pub show_help: bool,
@@ -62,6 +64,7 @@ impl TuiApp {
             selected_hop_address: 0,
             selected_flow: State::default_flow_id(),
             flow_counts: vec![],
+            flows_start_index: 0,
             resolver,
             geoip_lookup,
             show_help: false,
@@ -106,10 +109,10 @@ impl TuiApp {
 
     pub fn clamp_selected_hop(&mut self) {
         let hop_count = self.tracer_data().hops_for_flow(self.selected_flow).len();
-        if let Some(selected) = self.table_state.selected() {
-            if selected > hop_count - 1 {
-                self.table_state.select(Some(hop_count - 1));
-            }
+        if let Some(selected) = self.table_state.selected()
+            && selected > hop_count - 1
+        {
+            self.table_state.select(Some(hop_count - 1));
         }
     }
 
@@ -191,10 +194,10 @@ impl TuiApp {
     }
 
     pub fn next_hop_address(&mut self) {
-        if let Some(hop) = self.selected_hop() {
-            if self.selected_hop_address < hop.addr_count() - 1 {
-                self.selected_hop_address += 1;
-            }
+        if let Some(hop) = self.selected_hop()
+            && self.selected_hop_address < hop.addr_count() - 1
+        {
+            self.selected_hop_address += 1;
         }
     }
 
@@ -288,33 +291,32 @@ impl TuiApp {
     }
 
     pub fn toggle_column_visibility(&mut self) {
-        if self.settings_tab_selected == SETTINGS_TAB_COLUMNS {
-            if let Some(selected) = self.setting_table_state.selected() {
-                self.tui_config.tui_columns.toggle(selected);
-            }
+        if self.settings_tab_selected == SETTINGS_TAB_COLUMNS
+            && let Some(selected) = self.setting_table_state.selected()
+        {
+            self.tui_config.tui_columns.toggle(selected);
         }
     }
 
     pub fn move_column_down(&mut self) {
         if self.settings_tab_selected == SETTINGS_TAB_COLUMNS {
             let count = self.tui_config.tui_columns.all_columns_count();
-            if let Some(selected) = self.setting_table_state.selected() {
-                if selected < count - 1 {
-                    self.tui_config.tui_columns.move_down(selected);
-                    self.setting_table_state.select(Some(selected + 1));
-                }
+            if let Some(selected) = self.setting_table_state.selected()
+                && selected < count - 1
+            {
+                self.tui_config.tui_columns.move_down(selected);
+                self.setting_table_state.select(Some(selected + 1));
             }
         }
     }
 
     pub fn move_column_up(&mut self) {
-        if self.settings_tab_selected == SETTINGS_TAB_COLUMNS {
-            if let Some(selected) = self.setting_table_state.selected() {
-                if selected > 0 {
-                    self.tui_config.tui_columns.move_up(selected);
-                    self.setting_table_state.select(Some(selected - 1));
-                }
-            }
+        if self.settings_tab_selected == SETTINGS_TAB_COLUMNS
+            && let Some(selected) = self.setting_table_state.selected()
+            && selected > 0
+        {
+            self.tui_config.tui_columns.move_up(selected);
+            self.setting_table_state.select(Some(selected - 1));
         }
     }
 
@@ -371,10 +373,12 @@ impl TuiApp {
                 self.selected_flow = FlowId(0);
                 self.show_flows = false;
                 self.selected_hop_address = 0;
+                self.flows_start_index = 0;
             } else if self.flow_count() > 0 {
                 self.selected_flow = FlowId(1);
                 self.show_flows = true;
                 self.selected_hop_address = 0;
+                self.flows_start_index = 0;
             }
         }
     }
